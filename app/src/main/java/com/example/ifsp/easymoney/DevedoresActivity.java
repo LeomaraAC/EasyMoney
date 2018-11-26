@@ -87,8 +87,8 @@ public class DevedoresActivity extends AppCompatActivity {
                     "descricao VARCHAR NOT NULL," +
                     "valor REAL NOT NULL," +
                     "FOREIGN KEY (id_devedor) REFERENCES devedor(id))");
-            database.execSQL("INSERT INTO devedor(nome) VALUES ('Joao')");
-            database.execSQL("INSERT INTO devedor(nome) VALUES ('Paulo')");
+//            database.execSQL("INSERT INTO devedor(nome) VALUES ('Joao')");
+//            database.execSQL("INSERT INTO devedor(nome) VALUES ('Paulo')");
 
             database.execSQL("INSERT INTO divida(id_devedor,data,descricao, valor) " +
                     "VALUES (1,'25/03/2017','Emprestimo', 23.85)");

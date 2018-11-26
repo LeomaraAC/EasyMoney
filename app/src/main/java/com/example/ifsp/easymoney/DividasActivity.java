@@ -103,6 +103,7 @@ public class DividasActivity extends AppCompatActivity {
 
     private void AbrirActivityAddDivida(){
         Intent intentAddDivida = new Intent(this,AddDividaActivity.class);
+        intentAddDivida.putExtra("devedorId", Integer.toString(devedorId));
         startActivity(intentAddDivida);
     }
 
