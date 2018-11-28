@@ -1,5 +1,6 @@
 package com.example.ifsp.easymoney;
 
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -30,15 +31,44 @@ public class AddDevedorActivity extends AppCompatActivity {
 
     public void addDevedor(){
         String nome = nomeDevedor.getText().toString();
-        try {
-            database = openOrCreateDatabase("easy_money",MODE_PRIVATE,null);
-            database.execSQL("INSERT INTO devedor (nome) VALUES ('"+nome+"')");
-            database.close();
-            finish();
-            Toast.makeText(this, "Devedor Adicionado com Sucesso", Toast.LENGTH_LONG).show();
-        } catch (Exception e){
-            e.printStackTrace();
-            Toast.makeText(this, "Erro ao adicionar devedor ", Toast.LENGTH_LONG).show();
+        boolean ret = verificaDevedorExistente(nome);
+        if(ret == true){
+            try {
+                database = openOrCreateDatabase("easy_money",MODE_PRIVATE,null);
+                database.execSQL("INSERT INTO devedor (nome) VALUES ('"+nome+"')");
+                database.close();
+                finish();
+                Toast.makeText(this, "Devedor Adicionado com Sucesso", Toast.LENGTH_LONG).show();
+            } catch (Exception e){
+                e.printStackTrace();
+                Toast.makeText(this, "Erro ao adicionar devedor ", Toast.LENGTH_LONG).show();
+            }
+        }else{
+            Toast.makeText(this, "Devedor já existente", Toast.LENGTH_SHORT).show();
         }
+
+    }
+
+
+    private boolean verificaDevedorExistente(String nome){
+
+        try{
+            database = openOrCreateDatabase("easy_money",MODE_PRIVATE,null);
+            Cursor cursor = database.rawQuery("SELECT count(devedor.nome) " +
+                    "FROM devedor WHERE devedor.nome ='"+ nome +"'", null);
+            cursor.moveToFirst();
+            int cont = cursor.getInt(0);
+
+            if(cont == 0){
+                database.close();
+                return true;
+            }else{
+                database.close();
+                return false;
+            }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return false;
     }
 }
