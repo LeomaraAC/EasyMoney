@@ -1,22 +1,32 @@
 package com.example.ifsp.easymoney;
 
 import android.annotation.SuppressLint;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 public class AddDividaActivity extends AppCompatActivity {
 
-    private Button btn_addDivida;
+    private FloatingActionButton btn_addDivida;
     private Integer devedorId;
     private SQLiteDatabase database;
     private EditText ed_data, ed_valor, ed_desc;
+    private DatePickerDialog.OnDateSetListener onDateSetListener;
 
 
     @SuppressLint("WrongViewCast")
@@ -26,7 +36,7 @@ public class AddDividaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_divida);
         Intent intent = getIntent();
         devedorId = Integer.parseInt(intent.getStringExtra("devedorId"));
-        btn_addDivida = (Button) findViewById(R.id.btn_adicionarDivida);
+        btn_addDivida = (FloatingActionButton) findViewById(R.id.btn_adicionarDivida);
         ed_data = (EditText) findViewById(R.id.ed_data);
         ed_valor = (EditText) findViewById(R.id.ed_valor);
         ed_desc = (EditText) findViewById(R.id.ed_desc);

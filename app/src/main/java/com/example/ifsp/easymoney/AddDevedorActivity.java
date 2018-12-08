@@ -2,6 +2,7 @@ package com.example.ifsp.easymoney;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,8 +12,8 @@ import android.widget.Toast;
 
 public class AddDevedorActivity extends AppCompatActivity {
     private SQLiteDatabase database;
-    Button addDevedor;
-    EditText nomeDevedor;
+    private FloatingActionButton addDevedor;
+    private EditText nomeDevedor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +21,7 @@ public class AddDevedorActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_devedor);
 
         nomeDevedor = (EditText) findViewById(R.id.edt_Nome);
-        addDevedor = (Button) findViewById(R.id.btn_addDevedor);
+        addDevedor = (FloatingActionButton) findViewById(R.id.btn_addDevedor);
         addDevedor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
