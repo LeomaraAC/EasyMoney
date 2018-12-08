@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -43,6 +44,13 @@ public class DevedoresActivity extends AppCompatActivity {
                 carregarDividas(arrayIds.get(i));
             }
         });
+        listaDevedores.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                apagarDevedor(arrayIds.get(i));
+                return false;
+            }
+        });
         criarBancoDados();
         carregarDevedores();
     }
@@ -69,6 +77,15 @@ public class DevedoresActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+    private void apagarDevedor(Integer idDevedor) {
+        try{
+            database = openOrCreateDatabase("easy_money", MODE_PRIVATE, null);
+            database.execSQL("DELETE FROM devedor WHERE id = " +idDevedor);
+            database.close();
+            carregarDevedores();
+            Toast.makeText(this, "Devedor apagado com sucesso.", Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         return super.onOptionsItemSelected(item);
