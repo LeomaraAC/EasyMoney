@@ -31,23 +31,29 @@ public class AddDevedorActivity extends AppCompatActivity {
     }
 
     public void addDevedor(){
-        String nome = nomeDevedor.getText().toString();
-        boolean ret = verificaDevedorExistente(nome);
-        if(ret == true){
-            try {
-                database = openOrCreateDatabase("easy_money",MODE_PRIVATE,null);
-                database.execSQL("INSERT INTO devedor (nome) VALUES ('"+nome+"')");
-                database.close();
-                finish();
-                Toast.makeText(this, "Devedor Adicionado com Sucesso", Toast.LENGTH_LONG).show();
-            } catch (Exception e){
-                e.printStackTrace();
-                Toast.makeText(this, "Erro ao adicionar devedor ", Toast.LENGTH_LONG).show();
-            }
-        }else{
-            Toast.makeText(this, "Devedor já existente", Toast.LENGTH_SHORT).show();
-        }
-
+        String nome = nomeDevedor.getText().toString().trim();
+        Integer tamanho = nome.length();
+        if (!nome.equals("") && tamanho > 2) {
+            if (tamanho < 100){
+                boolean ret = verificaDevedorExistente(nome);
+                if(ret == true){
+                    try {
+                        database = openOrCreateDatabase("easy_money",MODE_PRIVATE,null);
+                        database.execSQL("INSERT INTO devedor (nome) VALUES ('"+nome+"')");
+                        database.close();
+                        finish();
+                        Toast.makeText(this, "Devedor Adicionado com Sucesso.", Toast.LENGTH_LONG).show();
+                    } catch (Exception e){
+                        e.printStackTrace();
+                        Toast.makeText(this, "Erro ao adicionar devedor.", Toast.LENGTH_LONG).show();
+                    }
+                }else{
+                    Toast.makeText(this, "Devedor já existente.", Toast.LENGTH_SHORT).show();
+                }
+            } else
+                Toast.makeText(this, "O nome do devedor deve ter no máximo 100 caracteres.", Toast.LENGTH_SHORT).show();
+        } else
+            Toast.makeText(this, "O nome do devedor deve ter no mínimo 2 caracteres.", Toast.LENGTH_SHORT).show();
     }
 
 
