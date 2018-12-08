@@ -88,16 +88,9 @@ public class DevedoresActivity extends AppCompatActivity {
                     "id INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "id_devedor INTEGER," +
                     "data VARCHAR NOT NULL," +
-                    "descricao VARCHAR NOT NULL," +
+                    "descricao VARCHAR(255) NOT NULL," +
                     "valor REAL NOT NULL," +
                     "FOREIGN KEY (id_devedor) REFERENCES devedor(id))");
-//            database.execSQL("INSERT INTO devedor(nome) VALUES ('Joao')");
-//            database.execSQL("INSERT INTO devedor(nome) VALUES ('Paulo')");
-
-            database.execSQL("INSERT INTO divida(id_devedor,data,descricao, valor) " +
-                    "VALUES (1,'25/03/2017','Emprestimo', 23.85)");
-//            database.execSQL("INSERT INTO divida(id_devedor,data,descricao, valor) " +
- //                   "VALUES (2,'20/03/2018','Emprestimo', 150.00)");
         } catch (Exception e){
             e.printStackTrace();
         }
