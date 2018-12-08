@@ -67,7 +67,7 @@ public class DividasActivity extends AppCompatActivity {
         try {
             database = openOrCreateDatabase("easy_money", MODE_PRIVATE, null);
             Cursor cursor = database.rawQuery("SELECT id, data, descricao, valor " +
-                    "FROM divida WHERE id_devedor="+devedorId, null);
+                    "FROM divida WHERE id_devedor="+devedorId+" ORDER BY id DESC", null);
             ArrayList<String> linhas = new ArrayList<String>();
             arrayIds = new ArrayList<Integer>();
             ArrayAdapter adapter = new ArrayAdapter<String>(
