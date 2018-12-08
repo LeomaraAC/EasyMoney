@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -95,7 +96,7 @@ public class DividasActivity extends AppCompatActivity {
             database.execSQL("DELETE FROM divida WHERE id = " +idDivida);
             database.close();
             carregarDividas();
-
+            Toast.makeText(this, "Dívida apagada com sucesso.", Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -107,4 +108,9 @@ public class DividasActivity extends AppCompatActivity {
         startActivity(intentAddDivida);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        carregarDividas();
+    }
 }
