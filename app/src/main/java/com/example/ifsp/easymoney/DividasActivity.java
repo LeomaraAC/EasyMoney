@@ -81,8 +81,20 @@ public class DividasActivity extends AppCompatActivity {
         database.close();
     }
 
+    private void carregarTotalDivida() {
+        database = openOrCreateDatabase("easy_money", MODE_PRIVATE, null);
+        Cursor cursor = database.rawQuery("SELECT IFNULL(SUM(divida.valor),0) as valor " +
+                "FROM devedor LEFT JOIN divida ON devedor.id = divida.id_devedor " +
+                "WHERE devedor.id="+devedorId +" GROUP BY devedor.nome", null);
+        if (cursor.moveToFirst()) {
+            tvValor.setText("Total: R$ "+cursor.getString(0));
+        }
+        database.close();
+    }
+
     private void carregarDividas() {
         try {
+            carregarTotalDivida();
             database = openOrCreateDatabase("easy_money", MODE_PRIVATE, null);
             Cursor cursor = database.rawQuery("SELECT id, data, descricao, valor " +
                     "FROM divida WHERE id_devedor="+devedorId+" ORDER BY id DESC", null);
