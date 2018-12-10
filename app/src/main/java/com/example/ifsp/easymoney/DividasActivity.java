@@ -1,11 +1,13 @@
 package com.example.ifsp.easymoney;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -21,9 +23,12 @@ public class DividasActivity extends AppCompatActivity {
 
     private ListView listaDividas;
     private TextView tvNomeDevedor;
+    private TextView tvValor;
     private SQLiteDatabase database;
     private Integer devedorId;
     private ArrayList<Integer> arrayIds;
+    private Integer idApagar;
+    private AlertDialog.Builder builder;
 
 
     @Override
@@ -42,12 +47,24 @@ public class DividasActivity extends AppCompatActivity {
         });
         listaDividas = (ListView) findViewById(R.id.listaDividas);
         tvNomeDevedor = (TextView) findViewById(R.id.tvNomeDevedor);
+        tvValor = (TextView) findViewById(R.id.tvValor);
         Intent intent = getIntent();
         devedorId = Integer.parseInt(intent.getStringExtra("devedorId"));
         listaDividas.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                apagarDivida(arrayIds.get(i));
+                idApagar = arrayIds.get(i);
+                builder = new AlertDialog.Builder(DividasActivity.this);
+                builder.setMessage("Deseja apagar esse devedor?")
+                        .setPositiveButton("Apagar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                apagarDivida(idApagar);
+                            }
+                        })
+                        .setNegativeButton("Cancelar", null);
+                AlertDialog dialog = builder.create();
+                dialog.show();
                 return false;
             }
         });
