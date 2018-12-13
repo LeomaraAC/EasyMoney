@@ -65,7 +65,7 @@ public class DividasActivity extends AppCompatActivity {
                         .setNegativeButton("Cancelar", null);
                 AlertDialog dialog = builder.create();
                 dialog.show();
-                return false;
+                return true;
             }
         });
         carregarNomeDevedor();
